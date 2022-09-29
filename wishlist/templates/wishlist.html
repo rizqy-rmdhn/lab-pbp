@@ -1,26 +1,56 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h5>Nama: </h5>
-<b>{{nama}}</b>
 
-<table>
-    <tr>
-    <th>Nama Barang</th>
-    <th>Harga Barang</th>
-    <th>Deskripsi</th>
-    </tr>
-    {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
-    {% for barang in list_barang %}
-        <tr>
-            <th>{{barang.nama_barang}}</th>
-            <th>{{barang.harga_barang}}</th>
-            <th>{{barang.deskripsi}}</th>
-        </tr>
-    {% endfor %}
-</table>
-
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="">WishList by {{ name }} - {{ npm }}</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>        
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Hello, {{user.get_username}}!
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="logout/">Logout</a></li>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="card bg-light text-dark shadow">
+        <div class="card-body">
+            <h1 class="card-title">WishList Items</h1>
+        </div>
+        <table class="table table-striped table-hover .w-auto">
+            <thead class="table">
+                <tr style="background-color: #7852a9;">
+                    <th class="text-light" scope="col">Item Name</th>
+                    <th class="text-light" scope="col">Item Price</th>
+                    <th class="text-light" scope="col">Description</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider" style="background-color: #e4a0f7;">
+                {% for barang in list_barang %}
+                    <tr>
+                        <th scope="row">{{barang.nama_barang}}</th>
+                        <td>{{barang.harga_barang}}</td>
+                        <td>{{barang.deskripsi}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+  </div> <!-- /container -->
+<div class="container-fluid">
+<p>Made with &#10084 by {{ name }} - {{ npm }}</p>
 <h5>Sesi terakhir login: {{ last_login }}</h5>
-<button><a href="{% url 'wishlist:logout' %}">Logout</a></button>
+</div>
 
 {% endblock content %}
+

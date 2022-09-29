@@ -7,7 +7,7 @@
 {% block content %}
 
 <div class = "login">
-
+    <div class = "container-fluid">
     <h1>Login</h1>
 
     <form method="POST" action="">
@@ -25,7 +25,7 @@
 
             <tr>
                 <td></td>
-                <td><input class="btn login_btn" type="submit" value="Login"></td>
+                <td><input class="btn login_btn btn-primary" type="submit" value="Login"></td>
             </tr>
         </table>
     </form>
@@ -39,7 +39,7 @@
     {% endif %}     
         
     Belum mempunyai akun? <a href="{% url 'wishlist:register' %}">Buat Akun</a>
-
+    </div>
 </div>
 
 {% endblock content %}
