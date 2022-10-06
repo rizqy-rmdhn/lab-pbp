@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>WishList</title>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="create_wishlist.js"></script>
+
+</head>
+{% endblock meta %}
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="">WishList by {{ name }} - {{ npm }}</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>        
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Hello, {{user.get_username}}!
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="logout/">Logout</a></li>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <br></br>
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="card bg-light text-dark shadow">
+        <div class="d-flex justify-content-between">
+            <h1 class="card-title">WishList Items</h1>
+        </div>
+
+        <br></br>
+        <form method="POST" action="{% url 'wishlist:create_wishlist'%}">
+            {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-3">
+                    <label class="form-label" name="nama_barang" for="nama_barang">Item Name: </label>
+                    <input type="text" name="nama_barang" id="nama_barang" class="form-control form-control-lg" />
+                    </div>
+
+                    <div class="col-md-3">
+                    <label class="form-label" name="harga_barang" for="harga_barang">Item Price: </label>
+                    <input type="number" name="harga_barang" id="harga_barang" class="form-control form-control-lg" />
+                    </div>
+
+                    <div class="col-md-3">
+                    <label class="form-label" name="deskripsi_barang" for="deskripsi_barang">Item Description: </label>
+                    <input type="text" name="deskripsi_barang" id="deskripsi_barang" class="form-control form-control-lg" />
+                    </div>
+
+                    <div class="col-md-3">
+                    <button class="btn btn-success" type="submit", value="Create">Create</button>
+                    </div>
+                </div>
+        </form>
+
+        <table id='table_of_wishlist' class="table table-striped table-hover .w-auto">
+            <thead class="table">
+                <tr style="background-color: #7852a9;">
+                    <th class="text-light" scope="col">Item Name</th>
+                    <th class="text-light" scope="col">Item Price</th>
+                    <th class="text-light" scope="col">Description</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider" style="background-color: #e4a0f7;">
+                <script type="text/javascript">
+                    $.getJSON("{% url 'wishlist:show_wishlist_json' %}", function(data) {
+                            $(data).each(function(key, value) {
+                                $("#table_of_wishlist > tbody").append($("<tr>")
+                                    .append($("<td>").append(value.fields.nama_barang))
+                                    .append($("<td>").append(value.fields.harga_barang))
+                                    .append($("<td>").append(value.fields.deskripsi)));
+                            })
+                            })
+                
+                    .done(function(){
+                        console.log("successfully loaded!");
+                    })
+                
+                    .fail(function(e){
+                        console.log('error:');
+                        console.error(e);
+                    });        
+                </script>
+            </tbody>
+        </table>
+    </div>
+  </div> <!-- /container -->
+<div class="container-fluid">
+<p>Made with &#10084 by {{ name }} - {{ npm }}</p>
+<h5>Sesi terakhir login: {{ last_login }}</h5>
+</div>
+
+{% endblock content %}
+
