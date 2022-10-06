@@ -41,7 +41,7 @@
         <br></br>
         <form method="POST" action="{% url 'wishlist:create_wishlist'%}">
             {% csrf_token %}
-                <div class="row">
+                <div class="row align-items-end">
                     <div class="col-md-3">
                     <label class="form-label" name="nama_barang" for="nama_barang">Item Name: </label>
                     <input type="text" name="nama_barang" id="nama_barang" class="form-control form-control-lg" />

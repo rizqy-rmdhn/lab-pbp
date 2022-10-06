@@ -1,9 +1,9 @@
 $(document).ready(function () {
     $("form").submit(function (event) {
       var formData = {
-        name: $("#nama_barang").val(),
-        email: $("#harga_barang").val(),
-        superheroAlias: $("#deskripsi_barang").val(),
+        nama_barang: $("#nama_barang").val(),
+        harga_barang: $("#harga_barang").val(),
+        deskripsi_barang: $("#deskripsi_barang").val(),
       };
   
       $.ajax({
